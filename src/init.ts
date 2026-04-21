@@ -21,6 +21,5 @@ export async function init() {
     alphaMode: "premultiplied",
   });
 
-  console.log("WebGPU spreman!");
-  console.log("WebGPU spreman!");
+  return { device, context, format, adapter };
 }
