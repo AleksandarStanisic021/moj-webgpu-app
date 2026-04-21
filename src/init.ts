@@ -22,4 +22,5 @@ export async function init() {
   });
 
   console.log("WebGPU spreman!");
+  console.log("WebGPU spreman!");
 }
