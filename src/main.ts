@@ -1,5 +1,5 @@
+// @ts-ignore
 import "./style.css";
-
 import { init } from "./init";
 
 init().catch((error) => {
