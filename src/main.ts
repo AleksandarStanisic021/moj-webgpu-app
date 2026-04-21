@@ -1,7 +1,7 @@
 import "./style.css";
 import { init } from "./init";
 import Dog from "./dog";
-import Car from "./car";
+import { Car } from "./car";
 
 const myDog = new Dog("Rex");
 myDog.bark();
