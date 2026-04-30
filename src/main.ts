@@ -13,14 +13,14 @@ const pipeline: GPURenderPipeline = device.createRenderPipeline({
   layout: "auto",
   vertex: {
     module: device.createShaderModule({
-      code: shader,
+      code: shader.vertex,
     }),
     entryPoint: "vs_main",
   },
 
   fragment: {
     module: device.createShaderModule({
-      code: shader,
+      code: shader.fragment,
     }),
     entryPoint: "fs_main",
     targets: [{ format }],
@@ -28,6 +28,20 @@ const pipeline: GPURenderPipeline = device.createRenderPipeline({
   primitive: {
     topology: "triangle-list",
   },
+});
+
+const commandEncoder = device.createCommandEncoder();
+const textureView = context.getCurrentTexture().createView();
+
+const renderPass = commandEncoder.beginRenderPass({
+  colorAttachments: [
+    {
+      view: textureView,
+      clearValue: { r: 0.0, g: 0.0, b: 0.0, a: 1.0 },
+      loadOp: "clear",
+      storeOp: "store",
+    },
+  ],
 });
 
 console.log(device, context, format, adapter);
