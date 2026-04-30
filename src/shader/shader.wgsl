@@ -1,18 +1,35 @@
-
-export const shader = {
-    vertex: `
-        @vertex
-        fn main(
-            @location(0) position: vec3<f32>,
-            @location(1) color: vec3<f32>
-        ) -> @builtin(position) vec4<f32> {
-            return vec4(position, 1.0);
-        }
-    `,
-    fragment: `
-        @fragment
-        fn main() -> @location(0) vec4<f32> {
-            return vec4(1.0, 0.0, 0.0, 1.0);
-        }
-    `
+sruct Fragment {
+    @builtin(position) Position: vec4<f32>,
+    @location(0) Color: vec4<f32>,  
 }
+
+@stage(vertex)
+fn vs_main(@builtin(vertex_index) VertexIndex: u32) -> Fragment {
+    var pos = array<vec2<f32>, 3>(
+        vec2<f32>(0.0, 0.5),
+        vec2<f32>(-0.5, -0.5),
+        vec2<f32>(0.5, -0.5)
+    );
+    
+    var color = array<vec4<f32>, 3>(
+        vec4<f32>(1.0, 0.0, 0.0, 1.0), // Red
+        vec4<f32>(0.0, 1.0, 0.0, 1.0), // Green
+        vec4<f32>(0.0, 0.0, 1.0, 1.0)  // Blue
+    );
+    
+    const output: Fragment;
+    output.Position = vec4<f32>(pos[VertexIndex], 0.0, 1.0);
+    output.Color = color[VertexIndex];
+    return output;
+}   
+
+@stage(fragment)
+fn fs_main(input: Fragment) -> @location(0) vec4<f32> {
+    return input.Color;
+}
+
+
+
+
+
+    
